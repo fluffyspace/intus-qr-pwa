@@ -25,6 +25,14 @@
     </button>
   </header>
 
+  <div id="installBanner" class="install-banner" hidden>
+    <button type="button" class="install-btn" data-install>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M12 3v12m0 0-4.5-4.5M12 15l4.5-4.5M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
+      Instaliraj aplikaciju
+    </button>
+    <button type="button" id="dismissInstall" class="dismiss" aria-label="Zatvori">&times;</button>
+  </div>
+
   <h1 id="greeting" class="greeting"></h1>
 
   <section class="qr-area">
@@ -50,8 +58,30 @@
     <input id="pozdrav" name="pozdrav" type="text" placeholder="npr. Dobro jutro!">
     <button type="submit" class="kind save">SPREMI</button>
     <button type="button" id="cancelSettings" class="link-btn">Odustani</button>
+    <button type="button" id="installLink" class="link-btn install-link" data-install hidden>Instaliraj aplikaciju na početni zaslon</button>
   </form>
 </section>
+
+<dialog id="iosInstall" class="sheet" aria-labelledby="iosInstallTitle">
+  <h2 id="iosInstallTitle">Dodaj na početni zaslon</h2>
+  <p class="sheet-lead">Aplikacija će raditi i bez interneta.</p>
+  <ol class="steps">
+    <li>
+      <span class="step-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M12 14V3m0 0L8 7m4-4 4 4M8 10H6a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-9a1 1 0 0 0-1-1h-2"/></svg></span>
+      <span>U Safariju dodirnite <b>Dijeli</b><br><small>(na novijim iOS-ima prvo <b>•••</b>, pa <b>Dijeli</b>)</small></span>
+    </li>
+    <li>
+      <span class="step-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="3.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M12 8.5v7M8.5 12h7"/></svg></span>
+      <span>Pomaknite se dolje i odaberite <b>Dodaj na početni zaslon</b></span>
+    </li>
+    <li>
+      <span class="step-icon step-text">Dodaj</span>
+      <span>Dodirnite <b>Dodaj</b> u gornjem desnom kutu</span>
+    </li>
+  </ol>
+  <p class="sheet-note">Ne vidite opciju? Otvorite ovu stranicu u Safariju.</p>
+  <form method="dialog"><button class="kind sheet-close">U REDU</button></form>
+</dialog>
 
 <script src="lib/qrcode.js"></script>
 <script src="app.js"></script>

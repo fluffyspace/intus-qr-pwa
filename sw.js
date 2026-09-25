@@ -1,5 +1,5 @@
 // Bump VERSION whenever any file below changes, so installed apps pick up the update.
-var VERSION = "intus-qr-v1";
+var VERSION = "intus-qr-v2";
 var ASSETS = [
   "./",
   "index.html",
@@ -20,7 +20,10 @@ var ASSETS = [
 self.addEventListener("install", function (event) {
   event.waitUntil(
     caches.open(VERSION)
-      .then(function (cache) { return cache.addAll(ASSETS); })
+      .then(function (cache) {
+        // Bypass the HTTP cache so an update never re-caches stale files.
+        return cache.addAll(ASSETS.map(function (u) { return new Request(u, { cache: "reload" }); }));
+      })
       .then(function () { return self.skipWaiting(); })
   );
 });

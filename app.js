@@ -92,6 +92,57 @@
     }
   });
 
+  // --- Install prompt ---------------------------------------------------
+  // Chromium (Android, desktop) fires beforeinstallprompt and lets us open the real
+  // install dialog. iOS has no such API, so there we show step-by-step instructions.
+  var installEls = Array.prototype.slice.call(document.querySelectorAll("[data-install]"));
+  var banner = $("installBanner"), iosSheet = $("iosInstall");
+  var deferredPrompt = null;
+  var isStandalone = window.matchMedia("(display-mode: standalone)").matches || navigator.standalone === true;
+  var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+    (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+  var bannerDismissed = false;
+  try { bannerDismissed = sessionStorage.getItem("installDismissed") === "1"; } catch (e) {}
+
+  function showInstall(on) {
+    $("installLink").hidden = !on;
+    banner.hidden = !on || bannerDismissed;
+  }
+
+  if (!isStandalone) {
+    if (isIOS) showInstall(true);
+    window.addEventListener("beforeinstallprompt", function (e) {
+      e.preventDefault();
+      deferredPrompt = e;
+      showInstall(true);
+    });
+  }
+  window.addEventListener("appinstalled", function () {
+    deferredPrompt = null;
+    showInstall(false);
+  });
+
+  installEls.forEach(function (el) {
+    el.addEventListener("click", function () {
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        // A prompt can be used only once; Chrome fires beforeinstallprompt again later.
+        deferredPrompt.userChoice.then(function () {
+          deferredPrompt = null;
+          showInstall(false);
+        });
+      } else if (iosSheet.showModal) {
+        iosSheet.showModal();
+      }
+    });
+  });
+
+  $("dismissInstall").addEventListener("click", function () {
+    bannerDismissed = true;
+    banner.hidden = true;
+    try { sessionStorage.setItem("installDismissed", "1"); } catch (e) {}
+  });
+
   predict();
   render();
   if (!sifra) showSettings();

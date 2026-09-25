@@ -115,3 +115,43 @@ body {
   color: var(--muted); font: inherit; font-size: 16px; cursor: pointer;
 }
 .settings input::placeholder { color: var(--muted); opacity: .7; }
+
+.install-banner {
+  display: flex; align-items: stretch; margin: 6px 10px 0;
+  border: 1px solid var(--btn); border-radius: 6px; overflow: hidden;
+}
+.install-btn {
+  flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 10px; border: 0; background: none; color: inherit; cursor: pointer;
+  font: 600 16px "IBM Plex Sans", system-ui, sans-serif;
+}
+.install-btn svg { width: 20px; height: 20px; color: var(--btn); }
+.dismiss {
+  width: 44px; border: 0; border-left: 1px solid var(--btn); background: none;
+  color: var(--muted); font-size: 22px; cursor: pointer;
+}
+.install-btn:active, .dismiss:active { background: rgba(127, 127, 127, .15); }
+.install-link { color: var(--btn); text-decoration: underline; }
+
+.sheet {
+  width: min(100% - 32px, 420px); padding: 22px 20px 16px;
+  border: 0; border-radius: 14px;
+  background: var(--bg); color: var(--fg);
+  font-family: "IBM Plex Sans", system-ui, sans-serif;
+}
+.sheet::backdrop { background: rgba(0, 0, 0, .55); }
+.sheet h2 { font-weight: 600; font-size: 22px; margin: 0 0 4px; }
+.sheet-lead { margin: 0 0 16px; color: var(--muted); }
+.steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; counter-reset: s; }
+.steps li { display: flex; align-items: center; gap: 14px; font-size: 16px; line-height: 1.35; }
+.step-icon {
+  flex: none; width: 44px; height: 44px; border-radius: 10px;
+  display: grid; place-items: center;
+  background: var(--input-bg); border: 1px solid var(--input-line); color: #0a84ff;
+}
+.step-icon svg { width: 26px; height: 26px; }
+.step-text { font-weight: 600; font-size: 13px; }
+.steps small { color: var(--muted); }
+.sheet-note { font-size: 14px; color: var(--muted); margin: 16px 0 12px; }
+.sheet form { margin: 0; }
+.sheet-close { width: 100%; padding: 16px; }

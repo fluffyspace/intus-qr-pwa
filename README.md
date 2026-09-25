@@ -13,6 +13,10 @@ The service worker (`sw.js`) caches every file on the first load. After that the
 Open **https://fluffyspace.github.io/intus-qr-pwa/** on the phone and install it (Chrome: ⋮ → *Install app*;
 Safari: Share → *Add to Home Screen*). Open it once from the home screen. After that it works fully offline.
 
+When the site is opened in a browser (not as an installed app), it shows an **Instaliraj aplikaciju** banner.
+The same link is in the settings screen. On Android/desktop Chrome and Edge, the banner opens the real install dialog.
+iOS has no install API, so on iPhone/iPad it shows a short step-by-step guide to Share → *Dodaj na početni zaslon*.
+
 No codes are published. The šifra starts empty and is stored only on the phone (localStorage).
 
 ## Updates
